@@ -1,14 +1,15 @@
 import React from "react"
-import AppLayout from "./components/AppLayout";
 import Head from "next/head";
 
+
+import AppLayout from "./components/AppLayout";
 import NicknameEditForm from "./components/NicknameEditForm";
 import FollowList from "./components/FollowList";
 
 const Profile = () => {
 
-    const follwerList = [{nickname: "kyb"}, {nickname: "hanumoka"}, {nickname: "amagramer"}];
-    const follwingList = [{nickname: "kyb"}, {nickname: "hanumoka"}, {nickname: "amagramer"}];
+    const followingList = [{nickname: "kyb"}, {nickname: "hanumoka"}, {nickname: "amagramer"}];
+    const foll0werList = [{nickname: "kyb"}, {nickname: "hanumoka"}, {nickname: "amagramer"}];
 
     return (
         <>
@@ -17,8 +18,8 @@ const Profile = () => {
             </Head>
             <AppLayout>
                 <NicknameEditForm></NicknameEditForm>
-                <FollowList header="팔로잉 목록" data={follwingList}></FollowList>
-                <FollowList header="팔로워 목록" data={follwerList}></FollowList>
+                <FollowList header="팔로잉 목록" data={followingList}></FollowList>
+                <FollowList header="팔로워 목록" data={foll0werList}></FollowList>
             </AppLayout>
         </>
     )
