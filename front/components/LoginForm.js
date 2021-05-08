@@ -1,9 +1,11 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import {Form, Input, Button} from 'antd';
 import Link from 'next/link';
 import styled from "styled-components";
-import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
+
+import { useDispatch } from "react-redux";
+import {loginAction} from "../reducers/user";
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -13,25 +15,16 @@ const FormWrapper = styled(Form)`
   padding: 10px;
 `;
 
-const LoginForm = ({setIsLoggedIn}) => {
+const LoginForm = () => {
+    const dispatch = useDispatch();
 
     const [id, onChangeId] = useInput('');
     const [password, onChangePassword] = useInput('');
 
-    // const [id, setId] = useState('');
-    // const onChangeId = useCallback((e) => {
-    //     setId(e.target.value);
-    // }, []);
-    //
-    // const [password, setPassword] = useState('');
-    // const onChangePassword = useCallback((e) => {
-    //     setPassword(e.target.value);
-    // }, []);
-
     const onSubmitForm = useCallback(() => {
         //e.preventDefault(); // 할필요 없다 antd onFinish에 이미 적용되어 있다.
         console.log(id, password);
-        setIsLoggedIn(true);
+        dispatch(loginAction({id, password}));
     }, [id, password]);
 
     return (
@@ -65,10 +58,6 @@ const LoginForm = ({setIsLoggedIn}) => {
             </ButtonWrapper>
         </FormWrapper>
     )
-}
-
-LoginForm.proptypes = {
-    setIsLoggedIn: PropTypes.func.isRequired
 }
 
 
