@@ -1,10 +1,11 @@
 import React, {useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
 import {useSelector} from "react-redux";
-import {Card, Popover, Button, Avatar} from 'antd';
+import {Card, Popover, Button, Avatar, List, Comment} from 'antd';
 import {RetweetOutlined, HeartOutlined, MessageOutlined, EllipsisOutlined, HeartTwoTone} from "@ant-design/icons";
 
 import PostImages from "./PostImages";
+import CommentForm from "./CommentForm";
 
 const PostCard = ({post}) => {
 
@@ -25,7 +26,7 @@ const PostCard = ({post}) => {
     return (
         <div style={{marginBottom: 20}}>
             <Card
-                cover={post.Images[0] && <PostImages images={post.iamges}/>}
+                cover={post.Images[0] && <PostImages images={post.Images}/>}
                 actions={[
                     <RetweetOutlined key="retweet"/>,
                     linked ?
@@ -59,7 +60,23 @@ const PostCard = ({post}) => {
                 {/*<Buttons/>*/}
             </Card>
             {commentFormOpened && (
-                <div>댓글 부분</div>
+                <div>
+                    <CommentForm post={post}/>
+                    <List
+                        header={`${post.Comments.length}개의 댓글`}
+                        itemLayout="horizontal"
+                        dataSource={post.Comments}
+                        renderItem={(item)=>(
+                            <li>
+                                <Comment
+                                 author={item.User.nickname}
+                                 avatar={<Avatar>{item.User.nickname[0]}</Avatar>}
+                                 content={item.content}
+                                />
+                            </li>
+                        )}
+                    />
+                </div>
             )}
             {/*<CommentForm/>*/}
             {/*<Comments/>*/}
